@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
+    <title> Movie Search </title>
+    <style>
+        .movies-area{
+        justify-content: space-around;
+        align-items: flex-start;
+        }
+    
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#"> Find your favorite movies </a>
+          </nav>
+    </header>
+    <main class = "container mt-2">
+        <form>
+        <fieldset class="form-group">
+            <label for="searchTerm"> Search: </label>
+            <input type="text" class="form-control" id="searchTerm" placeholder="Enter that amazing title">
+        </fieldset> 
+        <button type="submit" id="searchTerm" class="btn btn-primary" > GO! </button>
+            
+    </form> 
+    <section class="row movies-area">
+        <section class="mt-2 col-9 row" id="results">
+
+        </section>
+        <section class=" ml-2 col-3 row" id="favorite">
+            <h3> My Favorites </h3>
+            <section class="row" id=" ml-2 favorites">
+            </section>
+        </section>
+    </section>     
+    </main>
+    <fotter>
+        <h5 class=" mt-2 mylogo"> Developed by: Giovanna Cavalcante </h5>
+    </fotter>
+
+   
+    
+    <script src="app.js" charset="utf-8"></script>
+</body>
+</html>
