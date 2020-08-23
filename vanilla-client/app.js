@@ -6,13 +6,24 @@ const FavoriteSection = document.querySelector('#favorite');
 
 const API_URL='http://www.omdbapi.com/?apikey=45ebdd49&s=';
 
+const state = {
+    searchTerm: '' ,
+    results:  [],
+    favorite: []
+};
+
+input.addEventListener('keyup', () =>{
+  state.searchTerm = input.value;
+  
+});
+
 form.addEventListener('submit', formSubmitted);
 
  async function formSubmitted(event) {
   event.preventDefault();
   const searchTerm = input.value;
   try {
-    const results = await getResults(searchTerm);
+    state.results = await getResults(state.searchTerm);
       showResults(results);
     } catch(error) {
      showError(error);
@@ -29,19 +40,32 @@ async function getResults(searchTerm){
    return data.Search;
 }
 
-function showResults (results){
-  resultsSection.innerHTML = results.reduce((html, movie) => {
+function showResults (){
+  resultsSection.innerHTML = state.results.reduce((html, movie) => {
     return html + getMovieTemplate(movie, 4);
   }, '');
 
+  addButtonListeners();
+}
+
+function addButtonListeners(){
   const addFavoriteMovie = document.querySelectorAll('.add-favorite');
   addFavoriteMovie.forEach(button => {
-      button.addEventListener('click', (event) => {
-        const { id } = button.dataset;
-        const movie = results.find(movie => movie.imdbID === id)
-        FavoriteSection.innerHTML = FavoriteSection.innerHTML + getMovieTemplate(movie, 12, false);
-      });
+  button.addEventListener('click', buttonClicked);
   });
+}
+
+function buttonClicked(event){
+        const { id } = event.target.dataset;
+        const movie = state.results.find(movie => movie.imdbID === id);
+        state.favorite.push(movie);
+        updateFavoriteSection();
+};
+
+function updateFavoriteSection(){
+    FavoriteSection.innerHTML = state.favorite.reduce((html, movie) => {
+      return html + getMovieTemplate(movie, 12, false);
+    }, '');
 }
 
 function getMovieTemplate(movie, cols, button = true){
@@ -68,3 +92,4 @@ function showError(error) {
 </div>
 `;
 }
+
